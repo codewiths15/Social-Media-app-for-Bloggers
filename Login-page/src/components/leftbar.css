@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Dosis:wght@600&family=Poppins:wght@200&family=Roboto&family=Roboto+Slab&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Dosis:wght@600&family=Poppins:wght@200&family=Roboto&family=Roboto+Condensed:wght@700&family=Roboto+Slab&display=swap');
+
+*{
+    box-sizing: border-box;
+}
+
+html{
+    height: 100%;
+}
+
+.container{
+    width: 47%;
+    height: 657px;
+    background: linear-gradient(rgb(72, 6, 225),rgb(132, 0, 255));
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 3px solid black;
+    /*border-radius: 50% 0 0 50%/ 100% 0 0 100%;
+    transform: scaleX(1.5);  to curve the rectangle */
+}
+
+.container img{
+    opacity: 0.6;
+}
+
+.first-sec{
+    width: 20%;
+    height: 50%;
+   /* background-color: rgb(39, 84, 160);*/
+    position: absolute;
+    left: 715px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+}
+
+.first-sec p{
+    font-size: 50px;
+    font-weight: 800;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: aliceblue;
+   margin: 0;
+   padding: 10px;
+}
+
+.first-sec .p1{
+    font-size: 20px;
+    font-weight: 100;
+    margin-left:2px ;
+}
+.title{
+    width: 80%;
+    height: 600px;
+    /*background-color: rgb(255, 136, 0);*/
+    
+}
+
+.image{
+    width: 100%;
+    height: 50%;
+    background-color: aqua;
+}
+
+.image img{
+    border: 2px solid white;
+}
+
+.maintitle{
+    width: 100%;
+    height: 40%;
+    /*background-color: aqua;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+   
+}
+
+.t1{
+    width: 60%;
+    height: 25%;
+    /*background-color: rgb(187, 0, 255);*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+    margin-top:15px ;
+    font-family: 'Caprasimo', cursive;
+}
+
+ .c{
+        font-size: 30px;
+    animation-name: con;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    background-color: rgb(79, 2, 202);
+    box-shadow:  0 4px 28px rgba(0, 0, 0, 0.41) , 0 7px 10px rgba(0, 0, 0, 0.22);
+    text-decoration: underline;
+    margin-right: 3px;
+    border: 1px solid black;
+    padding: 5px;
+
+    
+}
+
+ .c1{
+    font-size: 35px;
+    animation-name: con1;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    background-color: rgb(91, 3, 174);
+    padding: 5px;
+    margin-right: 3px;
+    text-decoration: underline;
+    border: 1px solid black;
+
+    box-shadow:  0 4px 28px rgba(0, 0, 0, 0.41) , 0 7px 10px rgba(0, 0, 0, 0.22);
+
+   
+}
+
+.c2{
+    font-size: 40px;
+    animation-name: con2;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    background-color: rgb(111, 3, 174);
+    box-shadow:  0 4px 28px rgba(0, 0, 0, 0.41) , 0 7px 10px rgba(0, 0, 0, 0.22);
+    text-decoration: underline;
+    margin-right: 3px;
+    border: 1px solid black;
+
+    padding: 5px;
+   
+}
+
+.omprehend{
+
+    font-size: 45px;
+}
+@keyframes con {
+    0%{
+        font-size: 30px;
+    }
+
+    50%{
+        font-size: 45px;
+    }
+
+    100%{
+        font-size: 30px;
+    }
+
+        
+}
+
+@keyframes con1 {
+    0%{
+        font-size: 35px;
+    }
+
+    50%{
+        font-size: 50px;
+    }
+
+    100%{
+        font-size: 33px;
+    }
+
+}
+
+@keyframes con2 {
+    0%{
+        font-size: 45px;
+    }
+
+    50%{
+        font-size: 60px;
+    }
+
+    100%{
+        font-size: 45px;
+    }
+
+}
+
+.main-log{
+    width: 60%;
+    height: 657px;
+    /*background-color: black;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    width: 85%;
+    height: 75%;
+    border: 3px solid rgb(72, 6, 225);
+    box-shadow:  0 14px 28px rgba(0, 0, 0, 0.41) , 0 10px 10px rgba(0, 0, 0, 0.22);
+
+}
+
+

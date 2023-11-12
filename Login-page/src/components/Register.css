@@ -1,0 +1,53 @@
+.main-log{
+    width: 60%;
+    height: 657px;
+    /*background-color: black;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    width: 85%;
+    height: 75%;
+    border: 3px solid rgb(72, 6, 225);
+    box-shadow:  0 14px 28px rgba(0, 0, 0, 0.41) , 0 10px 10px rgba(0, 0, 0, 0.22);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input{
+    
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 40%;
+    width: 70%;
+    
+    
+    
+}
+
+.text{
+    width: 70%;
+    height: 40px;
+   
+}
+
+.button{
+    width: 70%;
+    height: 20%;
+   /* background-color: aquamarine;*/
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.press{
+    width: 100px;
+    height: 50px;
+    background-color: blueviolet;
+}
