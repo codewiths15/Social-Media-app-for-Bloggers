@@ -1,0 +1,26 @@
+/* styles.css */
+.scroll-container {
+    width: 100%; /* Set the width of the container */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent items from wrapping to a new line */
+  }
+  
+  .scroll-content {
+    display: flex; 
+    
+    align-items: center;
+    
+  }
+  
+  .item {
+    flex: 0 0 auto; /* Prevent items from stretching */
+    width: 400px; /* Set the width of each item */
+    margin-right: 10px; /* Add spacing between items */
+    display: inline-block;
+    background-color: aqua; /* Ensure items display in a line */
+  }
+  
+  .scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  
