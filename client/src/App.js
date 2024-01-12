@@ -9,13 +9,13 @@ function App() {
   const [user, setLoginUser] = useState({});
   return (
     <div className="App">
-       <BrowserRouter>
+      {/* <BrowserRouter>
         <Switch>
           <Route exact path="/">
             {user && user._id
               ? (() => {
                   console.log("User ID exists:", user._id, user.email);
-                  
+
                   return (
                     <Homepage userDetails={user} setLoginUser={setLoginUser} />
                   );
@@ -32,9 +32,9 @@ function App() {
             <Register />
           </Route>
         </Switch>
-      </BrowserRouter>   
-      {/* <Login setLoginUser={setLoginUser} /> */}
-      {/* <Homepage userDetails={user} setLoginUser={setLoginUser} />   */}
+      </BrowserRouter> */}
+      {/* <Login setLoginUser={setLoginUser} />  */}
+     <Homepage userDetails={user} setLoginUser={setLoginUser} />  
     </div>
   );
 }

@@ -7,6 +7,10 @@ import "jquery-ui-dist/jquery-ui";
 import axios from "axios";
 import Loader from "./Loader";
 import Ask from "./Ask";
+import { Icon } from "@iconify/react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function Homepage({ userDetails, setLoginUser }) {
   const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
 
@@ -17,7 +21,105 @@ export default function Homepage({ userDetails, setLoginUser }) {
 
   const [data, setData] = useState([]);
 
+  const [comments, setComments] = useState([]);
+
   const { _id, email, name } = userDetails;
+
+  const [showCommentSection, setShowCommentSection] = useState(false);
+
+  const [clicked, setClicked] = useState(false);
+
+  const handleButtonClick = () => {
+    setClicked(true);
+    // You can perform other actions here on button click if needed
+    // For example: Update state or trigger other functions
+  };
+
+  const toggleCommentSection = () => {
+    setShowCommentSection(!showCommentSection);
+  };
+
+  const handleUpdate = (e, index) => {
+    const { value } = e.target;
+    const updatedComments = [...comments]; // Create a copy of the comments array
+    updatedComments[index] = value; // Update the comment at the specified index
+    setComments(updatedComments); // Update the state with the modified comments array
+  };
+  const handleLike = (id, user_id) => {
+    axios
+      .put("http://localhost:8000/likes", {
+        postId: id, // The ID of the post to be liked
+        userid: user_id, // The ID of the user performing the like action
+      })
+      .then((response) => {
+        // Handle the response from the backend if needed
+        // console.log("Post liked:", response.data);
+        // You might update the UI here to reflect that the post has been liked
+      })
+      .catch((error) => {
+        // Handle any errors that occurred during the request
+        console.error("Error liking post:", error);
+      });
+  };
+
+  const handleUnLike = (id, user_id) => {
+    axios
+      .put("http://localhost:8000/unlikes", {
+        postId: id, // The ID of the post to be liked
+        userid: user_id, // The ID of the user performing the like action
+      })
+      .then((response) => {
+        // Handle the response from the backend if needed
+        // console.log("Post liked:", response.data);
+        // You might update the UI here to reflect that the post has been liked
+      })
+      .catch((error) => {
+        // Handle any errors that occurred during the request
+        console.error("Error liking post:", error);
+      });
+  };
+
+  const handleComments = (id, user_id, name, comment) => {
+    toast.info("Posting comment...", {
+      autoClose: 2000, // Auto close the toast after 2 seconds
+    });
+    axios
+      .put("http://localhost:8000/comment", {
+        postId: id,
+        userid: user_id,
+        username: name,
+        comment: comment,
+      })
+      .then((response) => {
+        // Handle the response from the backend if needed
+        console.log("Post commented:", response.data);
+        setComments([]);
+        // You might update the UI here to reflect that the post has been liked
+        toast.success("Comment posted successfully!", {
+          autoClose: 3000,
+        });
+      })
+      .catch((error) => {
+        // Handle any errors that occurred during the request
+        console.error("Error commenting on post:", error);
+        toast.error("Error posting comment. Please try again later.", {
+          autoClose: 3000,
+        });
+      });
+  };
+
+  function getDayName(dayNumber) {
+    const daysOfWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    return daysOfWeek[dayNumber];
+  }
 
   useEffect(() => {
     const delayTime = 4000; // 5 seconds in milliseconds
@@ -102,6 +204,14 @@ export default function Homepage({ userDetails, setLoginUser }) {
             ASK
           </button>
         </div>
+        <div className="functions">
+          <button className="func" onClick={() => setshow(true)}>
+            POST
+          </button>
+          <button className="func" onClick={() => setshow1(true)}>
+            ASK
+          </button>
+        </div>
       </div>
 
       <Popup1
@@ -129,21 +239,35 @@ export default function Homepage({ userDetails, setLoginUser }) {
       </div>
       <div className="posts">
         <div className="ask-section">
-          <Ask/>
+          <Ask />
         </div>
         <div className="postsss">
           {data.map((item, index) => {
+            const dayName = getDayName(item.day);
+
+            // Format createdAt to display year, month, and day
+            const createdAtDate = new Date(item.createdAt);
+            const formattedDate = createdAtDate.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            });
             return (
               <div className="post-section">
                 <div className="post-card">
                   <div className="name">
-                    <div className="profile-pic">
-                      <img
-                        src="https://www.pngall.com/wp-content/uploads/5/Profile.png"
-                        alt=""
-                      />
+                    <div className="first-space">
+                      <div className="profile-pic">
+                        <img
+                          src="https://www.pngall.com/wp-content/uploads/5/Profile.png"
+                          alt=""
+                        />
+                      </div>
+                      <div className="profile-name"> {item.name}</div>
                     </div>
-                    <div className="profile-name"> {item.name}</div>
+                    <div className="post-time">
+                      {dayName}, {formattedDate}
+                    </div>
                   </div>
                   <div className="profession">MERN Stack Developer</div>
                   <div className="information">{item.caption}</div>
@@ -151,9 +275,109 @@ export default function Homepage({ userDetails, setLoginUser }) {
                     <img
                       src={`http://localhost:8000/${item.imageUrl}`}
                       alt=""
-                      height={400}
-                      width={600}
                     />
+                  </div>
+                  <div className="like-comment">
+                    <div className="like">
+                      <div className="likey">
+                        {item.likes.length + "  "}Likes
+                      </div>
+                      {item.likes.includes(_id) ? (
+                        <div
+                          className="likey"
+                          onClick={() => handleUnLike(item._id, _id)}
+                        >
+                          <button className="like-1 splash like-3">
+                            Unlike
+                          </button>
+                        </div>
+                      ) : (
+                        <div
+                          className="likey"
+                          onClick={() => handleLike(item._id, _id)}
+                        >
+                          <button className="like-1 like-2">Like</button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="comment-section">
+                    <div
+                      className={`discussion gradient-hover`}
+                      onClick={toggleCommentSection}
+                    >
+                      Discussion Forum
+                    </div>
+                    <ToastContainer />
+                    <div
+                      className={`close-comment ${
+                        showCommentSection ? "show" : "hide"
+                      }`}
+                    >
+                      <div className="comment-input">
+                        <textarea
+                          id=""
+                          rows="2"
+                          name={`comment${index}`}
+                          value={comments[index] || ""} // Set value from the comments array
+                          onChange={(e) => handleUpdate(e, index)}
+                          placeholder="Your Comment"
+                        ></textarea>
+                        <button
+                          onClick={() =>
+                            handleComments(item._id, _id, name, comments[index])
+                          }
+                        >
+                          Post comment
+                        </button>
+                      </div>
+                      <div className="border-comments">
+                        <div className="all-comments1">
+                          {item.comments.map((comment1, index) => {
+                            return (
+                              <>
+                                <div className="all-comments">
+                                  <div className="commentor-name">
+                                    <img
+                                      src="https://www.pngall.com/wp-content/uploads/5/Profile.png"
+                                      className="commentor-icon"
+                                      height={30}
+                                      width={30}
+                                      alt=""
+                                    />
+                                    <div className="commentor-name1">
+                                      {comment1.name}
+                                    </div>
+                                  </div>
+                                  <div className="comment-main">
+                                    <div className="comment-text">
+                                      {comment1.text}
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="reply-section">
+                                  <button className="reply-button">
+                                    Reply
+                                  </button>
+                                
+                                </div>
+                                <div className="reply-bar">
+                                    <div className="reply-bar1">
+                                      <input
+                                        type="text"
+                                        className="reply-text"
+                                      />
+                                      <div className="reply-button1">
+                                        <button>Reply</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                              </>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
